@@ -3,7 +3,18 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
-llm = ChatGroq(groq_api_key=os.getenv("GROQ_API_KEY"), model_name="llama3-70b-8192")
+
+api_key = os.getenv("GROQ_API_KEY")
+
+if not api_key:
+    raise ValueError("GROQ_API_KEY not found. Set it in Streamlit secrets.")
+
+
+llm = ChatGroq(
+    groq_api_key=api_key,
+    model_name="llama3-8b-8192",
+    temperature=0.7
+)
 
 
 if __name__ == "__main__":
