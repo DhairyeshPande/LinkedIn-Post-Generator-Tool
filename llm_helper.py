@@ -13,7 +13,8 @@ if not api_key:
 llm = ChatGroq(
     groq_api_key=api_key,
     model_name="llama3-8b-8192",
-    temperature=0.7
+    temperature=0.7,
+    max_tokens=512
 )
 
 

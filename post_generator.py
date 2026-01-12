@@ -13,19 +13,19 @@ def get_length_str(length):
         return "11 to 15 lines"
 
 
-def generate_post(length, language, tag):
-    prompt = f"""
-Write a LinkedIn post.
+# def generate_post(length, language, tag):
+#     prompt = f"""
+# Write a LinkedIn post.
 
-Length: {length}
-Language: {language}
-Topic/Tag: {tag}
+# Length: {length}
+# Language: {language}
+# Topic/Tag: {tag}
 
-Make it professional, engaging, and human-like.
-"""
+# Make it professional, engaging, and human-like.
+# """
 
-    response = llm.invoke(prompt)   # prompt is now PURE STRING
-    return response.content
+#     response = llm.invoke(prompt)   # prompt is now PURE STRING
+#     return response.content
 
 
 # def generate_post(length, language, tag):
@@ -33,6 +33,30 @@ Make it professional, engaging, and human-like.
 #     response = llm.invoke(prompt)
 #     return response.content
 
+
+def generate_post(length, language, tag):
+    prompt = f"""
+You are a professional LinkedIn content writer.
+
+Write a LinkedIn post with:
+- Length: {length}
+- Language: {language}
+- Topic: {tag}
+
+Keep it engaging, human-like and professional.
+"""
+
+    try:
+        response = llm.invoke(prompt)
+
+        # LangChain returns AIMessage
+        if hasattr(response, "content"):
+            return response.content
+
+        return str(response)
+
+    except Exception as e:
+        return f"❌ LLM Error: {e}"
 
 def get_prompt(length, language, tag):
     length_str = get_length_str(length)
