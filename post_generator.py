@@ -14,9 +14,24 @@ def get_length_str(length):
 
 
 def generate_post(length, language, tag):
-    prompt = get_prompt(length, language, tag)
-    response = llm.invoke(prompt)
+    prompt = f"""
+Write a LinkedIn post.
+
+Length: {length}
+Language: {language}
+Topic/Tag: {tag}
+
+Make it professional, engaging, and human-like.
+"""
+
+    response = llm.invoke(prompt)   # prompt is now PURE STRING
     return response.content
+
+
+# def generate_post(length, language, tag):
+#     prompt = get_prompt(length, language, tag)
+#     response = llm.invoke(prompt)
+#     return response.content
 
 
 def get_prompt(length, language, tag):
